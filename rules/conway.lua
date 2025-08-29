@@ -1,5 +1,11 @@
 local conway = {}
 
+conway.numStates = 2
+conway.colormap = {
+    [0] = {0, 0, 0},    -- dead -> black
+    [1] = {1, 1, 1}     -- alive -> white
+}
+
 function conway.updateCell(grid, x, y, state)
     local rows, cols = #grid, #grid[1]
     local neighbors = 0

@@ -1,5 +1,11 @@
 local seeds = {}
 
+seeds.numStates = 2
+seeds.colormap = {
+    [0] = {0, 0, 0},    -- dead -> black
+    [1] = {1, 0, 0}     -- alive -> red
+}
+
 function seeds.updateCell(grid, x, y, state)
     local rows, cols = #grid, #grid[1]
     local neighbors = 0

@@ -1,5 +1,11 @@
 local highlife = {}
 
+highlife.numStates = 2
+highlife.colormap = {
+    [0] = {0, 0, 0},
+    [1] = {0.7, 0.9, 0.2}  -- olive color
+}
+
 function highlife.updateCell(grid, x, y, state)
     local rows, cols = #grid, #grid[1]
     local neighbors = 0
