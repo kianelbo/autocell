@@ -1,25 +1,30 @@
-local Game = require("src.game")
-local game
+local config = require("conf")
+local rule = require("rules." .. config.rule)
+local Grid = require("src.grid")
+local UI = require("src.ui")
+
+local grid = Grid:new(10, rule, config.randomDensity)
+local ui = UI
+ui:init(grid)
 
 function love.load()
-    love.graphics.setBackgroundColor(0, 0, 0)
-    love.graphics.setColor(1, 1, 1)
+    love.graphics.setBackgroundColor(0,0,0)
+    love.graphics.setColor(1,1,1)
     love.graphics.setFont(love.graphics.newFont(14))
-    game = Game:new(10) -- cell size
 end
 
 function love.update(dt)
-    game:update(dt)
+    ui:update(dt)
 end
 
 function love.draw()
-    game:draw()
+    ui:draw()
 end
 
-function love.mousepressed(x, y, button)
-    game:mousepressed(x, y, button)
+function love.mousepressed(x,y,button)
+    ui:mousepressed(x,y,button)
 end
 
 function love.keypressed(key)
-    game:keypressed(key)
+    ui:keypressed(key)
 end
