@@ -1,5 +1,7 @@
 # AutoCell
-Autocell is a generic cellular automata engine built with [LÖVE](https://love2d.org/).
+Autocell is a generic cellular automata engine built with [LÖVE](https://love2d.org/). 
+
+![Demo](https://raw.githubusercontent.com/kianelbo/autocell/refs/heads/master/demo.gif)
 
 ## Features
 * Autoplay / manual simulation
