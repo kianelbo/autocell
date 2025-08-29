@@ -1,9 +1,9 @@
-# Game-of-Life
-[Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life) clone built with SFML library  
-with load/save ability and manual/auto iteration
+# AutoCell
+A generic cellular automata engine built with LÖVE engine
 
-## SFML Dependencies
-* openal32
-* sfml-graphics-2
-* sfml-system-2
-* sfml-window-2
+## Available Rule
+* [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
+* [Highlife](https://en.wikipedia.org/wiki/Highlife_(cellular_automaton))
+* [Seeds](https://en.wikipedia.org/wiki/Seeds_(cellular_automaton))
+
+You can also define custom rules (see `rules` directory for examples) and change the `rule` entry in `conf.lua`.
