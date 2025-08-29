@@ -9,6 +9,17 @@ local autoplay = false
 local timer, interval = 0, 0.1
 local playBtn, lockBtn
 
+local saveBtnIdx, loadBtnIdx, clearBtnIdx
+
+local lastCellX, lastCellY = nil, nil
+
+-- Temporary button text timers
+local function setTemporaryText(btn, text, duration)
+    btn._tempOriginal = btn.label
+    btn.label = text
+    btn._tempTimer = duration or 2
+end
+
 local function toggleAutoplay(btn)
     autoplay = not autoplay
     btn.label = autoplay and "Pause" or "Play"
@@ -31,11 +42,20 @@ function UI:init(g)
         return #buttons
     end
 
-    addBtn("Save", function() grid:save("board.json") end)
-    addBtn("Load", function() grid:load("board.json") end)
-    addBtn("Reset", function() grid:clear() end)
-    addBtn("Randomize", function() grid:randomize() end)
-    addBtn("Step", function() grid:update() end)
+    saveBtnIdx = addBtn("Save", function(btn)
+        grid:save("board.json")
+        setTemporaryText(btn, "Saved!", 2)
+    end)
+    loadBtnIdx = addBtn("Load", function(btn)
+        grid:load("board.json")
+        setTemporaryText(btn, "Loaded!", 2)
+    end)
+    clearBtnIdx = addBtn("Clear", function(btn)
+        grid:clear()
+        setTemporaryText(btn, "Cleared!", 2)
+    end)
+    addBtn("Randomize", function(btn) grid:randomize() end)
+    addBtn("Step", function(btn) grid:update() end)
 
     playBtn = addBtn("Play", toggleAutoplay)
     lockBtn = addBtn("Lock", toggleLock)
@@ -48,6 +68,35 @@ function UI:update(dt)
             grid:update()
             timer=0
         end
+    end
+
+    -- update temporary button text timers
+    for _,b in ipairs(buttons) do
+        if b._tempTimer then
+            b._tempTimer = b._tempTimer - dt
+            if b._tempTimer <= 0 then
+                b.label = b._tempOriginal
+                b._tempTimer = nil
+                b._tempOriginal = nil
+            end
+        end
+    end
+
+    -- handle drag painting
+    if love.mouse.isDown(1) then
+        local mx, my = love.mouse.getPosition()
+        if my < love.graphics.getHeight() - 50 then -- only grid area
+            local cellX = math.floor(mx / grid.cellSize) + 1
+            local cellY = math.floor(my / grid.cellSize) + 1
+            if cellX ~= lastCellX or cellY ~= lastCellY then
+                grid:toggleCellAt(mx, my)
+                lastCellX, lastCellY = cellX, cellY
+            end
+        else
+            lastCellX, lastCellY = nil, nil -- over button area, don't paint
+        end
+    else
+        lastCellX, lastCellY = nil, nil -- button released, stop painting
     end
 end
 
@@ -65,23 +114,41 @@ function UI:draw()
     end
 end
 
-function UI:mousepressed(x,y,button)
-    if y > love.graphics.getHeight()-50 then
-        for _,b in ipairs(buttons) do
-            if x>=b.x and x<=b.x+b.w and y>=b.y and y<=b.y+b.h then
-                b.callback(b)
+function UI:mousepressed(x, y, button)
+    if button == 1 then
+        if y > love.graphics.getHeight() - 50 then
+            -- clicked on buttons
+            for _, b in ipairs(buttons) do
+                if x>=b.x and x<=b.x+b.w and y>=b.y and y<=b.y+b.h then
+                    b.callback(b)
+                end
             end
+        else
+            -- clicked on grid: toggle the first cell immediately
+            grid:toggleCellAt(x, y)
+
+            -- set lastCellX/Y so drag picking works properly
+            lastCellX = math.floor(x / grid.cellSize) + 1
+            lastCellY = math.floor(y / grid.cellSize) + 1
         end
-    else
-        if button==1 then grid:toggleCellAt(x,y) end
     end
 end
 
+
 function UI:keypressed(key)
     local map = {
-        s = function() grid:save("board.json") end,
-        l = function() grid:load("board.json") end,
-        c = function() grid:clear() end,
+        s = function() 
+            grid:save("board.json")
+            setTemporaryText(buttons[saveBtnIdx], "Saved!", 2)
+        end,
+        l = function()
+            grid:load("board.json")
+            setTemporaryText(buttons[loadBtnIdx], "Loaded!", 2)
+        end,
+        c = function()
+            grid:clear()
+            setTemporaryText(buttons[clearBtnIdx], "Cleared!", 2)
+        end,
         r = function() grid:randomize() end,
         n = function() grid:update() end,
         space = function() toggleAutoplay(buttons[playBtn]) end,
