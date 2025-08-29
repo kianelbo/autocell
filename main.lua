@@ -1,15 +1,16 @@
+local Colors = require("src.colors")
 local config = require("conf")
 local rule = require("rules." .. config.rule)
 local Grid = require("src.grid")
 local UI = require("src.ui")
 
-local grid = Grid:new(10, rule, config.randomDensity)
+local grid = Grid:new(config.cellSize, rule, config.randomDensity)
 local ui = UI
 ui:init(grid)
 
 function love.load()
-    love.graphics.setBackgroundColor(0,0,0)
-    love.graphics.setColor(1,1,1)
+    love.graphics.setBackgroundColor(Colors.Black)
+    love.graphics.setColor(Colors.White)
     love.graphics.setFont(love.graphics.newFont(14))
 end
 

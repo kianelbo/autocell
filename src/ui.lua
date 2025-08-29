@@ -1,3 +1,4 @@
+local Colors = require("src.colors")
 local Grid = require("src.grid")
 local UI = {}
 UI.__index = UI
@@ -11,12 +12,12 @@ local playBtn, lockBtn
 local function toggleAutoplay(btn)
     autoplay = not autoplay
     btn.label = autoplay and "Pause" or "Play"
-    btn.color = autoplay and {1,0,0} or {1,1,1} -- red when paused
+    btn.color = autoplay and Colors.Red or Colors.White         -- red when paused
 end
 
 local function toggleLock(btn)
     grid.locked = not grid.locked
-    btn.color = grid.locked and {1,0.84,0} or {1,1,1} -- golden when locked
+    btn.color = grid.locked and Colors.Golden or Colors.White   -- golden when locked
 end
 
 function UI:init(g)
@@ -26,7 +27,7 @@ function UI:init(g)
     local y = love.graphics.getHeight()-bh-10
 
     local function addBtn(label, callback)
-        table.insert(buttons,{label=label, x=10+(#buttons)*(bw+10), y=y, w=bw,h=bh, callback=callback, color={1,1,1}})
+        table.insert(buttons,{label=label, x=10+(#buttons)*(bw+10), y=y, w=bw,h=bh, callback=callback, color=Colors.White})
         return #buttons
     end
 
@@ -51,7 +52,7 @@ function UI:update(dt)
 end
 
 function UI:draw()
-    love.graphics.setColor(1,1,1)
+    love.graphics.setColor(Colors.White)
     grid:draw()
     for _,b in ipairs(buttons) do
         love.graphics.setColor(b.color[1]*0.2,b.color[2]*0.2,b.color[3]*0.2)

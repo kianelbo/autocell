@@ -8,5 +8,8 @@ end
 return {
     -- pick which rule to load
     rule = "conway",
-    randomDensity = 0.1
+    -- initial random density
+    randomDensity = 0.1,
+    -- size of each cell in pixels (reduce to have a larger grid)
+    cellSize = 10
 }
