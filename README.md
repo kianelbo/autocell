@@ -1,5 +1,5 @@
 # AutoCell
-Autocell is a generic cellular automata engine built with [LÖVE](https://love2d.org/). 
+Autocell is a generic cellular automata engine made with [LÖVE](https://love2d.org/). 
 
 ![Demo](https://raw.githubusercontent.com/kianelbo/autocell/refs/heads/master/demo.gif)
 
@@ -17,6 +17,7 @@ Autocell is a generic cellular automata engine built with [LÖVE](https://love2d
 * [Seeds](https://en.wikipedia.org/wiki/Seeds_(cellular_automaton))
 * [Cyclic](https://en.wikipedia.org/wiki/Cyclic_cellular_automaton)
 * [Rule 30](https://en.wikipedia.org/wiki/Rule_30)
+* [Wireworld](https://en.wikipedia.org/wiki/Wireworld)
 
 #### You can also define custom rules (see `rules` directory for examples).
 

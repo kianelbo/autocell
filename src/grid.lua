@@ -1,3 +1,4 @@
+local Colors = require("src.colors")
 local json = require("libs.dkjson")
 local Grid = {}
 Grid.__index = Grid
