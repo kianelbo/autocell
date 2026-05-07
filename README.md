@@ -9,7 +9,7 @@ Autocell is a generic cellular automata engine made with [LÖVE](https://love2d.
 * Load / save grids
 * Define custom rules
 
-#### To change parameters or the rules edit `conf.lua` file.
+#### To change parameters or the rule edit `conf.lua` file.
 
 ## Available Rules
 * [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
