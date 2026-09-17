@@ -13,10 +13,11 @@ Autocell is a generic cellular automata engine made with [LÖVE](https://love2d.
 
 ## Available Rules
 * [Conway's Game of Life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life)
-* [Highlife](https://en.wikipedia.org/wiki/Highlife_(cellular_automaton))
-* [Seeds](https://en.wikipedia.org/wiki/Seeds_(cellular_automaton))
 * [Cyclic](https://en.wikipedia.org/wiki/Cyclic_cellular_automaton)
+* [Day and Night](https://en.wikipedia.org/wiki/Day_and_Night_(cellular_automaton))
+* [Highlife](https://en.wikipedia.org/wiki/Highlife_(cellular_automaton))
 * [Rule 30](https://en.wikipedia.org/wiki/Rule_30)
+* [Seeds](https://en.wikipedia.org/wiki/Seeds_(cellular_automaton))
 * [Wireworld](https://en.wikipedia.org/wiki/Wireworld)
 
 #### You can also define custom rules (see `rules` directory for examples).
